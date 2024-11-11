@@ -1,16 +1,30 @@
-washer.exe : database.o motor.o
-	gcc -o main.exe database.o motor.o main.o `mysql_config --libs`
+# 컴파일러와 옵션
+CC = gcc
+CFLAGS = -Wall `mysql_config --cflags`
+LDFLAGS = `mysql_config --libs` -lwiringPi  # MySQL 라이브러리와 WiringPi 라이브러리 추가
 
-main.o : main/main.c
-	gcc -c -o main.o main/main.c
+# 최종 실행 파일 이름
+TARGET = wsRasp.exe
 
-database.o : database/database.c database/database.h
-	gcc -c -o database.o database/database.c `mysql_config --cflags`
+# 오브젝트 파일 목록
+OBJS = main.o motor.o database.o
 
-motor.o : motor/motor.c motor/motor.h
-	gcc -c -o motor.o motor/motor.c
+# 최종 실행 파일 생성
+$(TARGET): $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
+# main.o 파일 생성
+main.o: main.c motor.h database.h
+	$(CC) -c main.c -o main.o $(CFLAGS)
 
+# motor.o 파일 생성
+motor.o: motor.c motor.h
+	$(CC) -c motor.c -o motor.o $(CFLAGS)
 
+# database.o 파일 생성
+database.o: database.c database.h
+	$(CC) -c database.c -o database.o $(CFLAGS)
+
+# clean 규칙
 clean:
-	rm -f *.o main.exe
+	rm -f $(OBJS) $(TARGET)

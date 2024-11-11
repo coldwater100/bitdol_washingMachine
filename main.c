@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "motor/motor.h"
-#include "database/database.h"
+#include "motor.h"
+#include "database.h"
 
 
 int main(){
@@ -8,6 +8,7 @@ int main(){
          printf("WiringPi 초기화 실패!\n");
          return 1;
     }
+    printf("hi\n");
     pinMode(ENA, OUTPUT);
     pinMode(IN1, OUTPUT);
     pinMode(IN2, OUTPUT);

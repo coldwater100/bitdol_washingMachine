@@ -10,9 +10,9 @@
  * - IN1: 방향 제어 핀 1 (GPIO 4)
  * - IN2: 방향 제어 핀 2 (GPIO 5)
  */
-#define ENA 1   // PWM 핀
-#define IN1 7   // 방향 제어 핀 1
-#define IN2 21  // 방향 제어 핀 2
+#define ENA 1   // PWM 핀(물리핀 12)
+#define IN1 4   // 방향 제어 핀 1(물리핀 16)(GPIO 4)
+#define IN2 5  // 방향 제어 핀 2(물리핀 18)(GPIO 5)
 
 /**
  * 모터를 정방향으로 회전
