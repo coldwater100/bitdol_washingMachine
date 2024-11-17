@@ -7,7 +7,7 @@ LDFLAGS = `mysql_config --libs` -lwiringPi  # MySQL 라이브러리와 WiringPi 
 TARGET = wsRasp.exe
 
 # 오브젝트 파일 목록
-OBJS = main.o motor.o database.o
+OBJS = main.o motor.o database.o flow_sensor.o bluetooth.o lcd.o
 
 # 최종 실행 파일 생성
 $(TARGET): $(OBJS)
@@ -24,6 +24,18 @@ motor.o: motor.c motor.h
 # database.o 파일 생성
 database.o: database.c database.h
 	$(CC) -c database.c -o database.o $(CFLAGS)
+
+# bluetooth.o 파일 생성
+bluetooth.o: bluetooth.c bluetooth.h
+	$(CC) -c bluetooth.c -o bluetooth.o $(CFLAGS)
+
+# flow_sensor.o 파일 생성
+flow_sensor.o: flow_sensor.c flow_sensor.h
+	$(CC) -c flow_sensor.c -o flow_sensor.o $(CFLAGS)
+
+# lcd.o 파일 생성
+lcd.o: lcd.c lcd.h
+	$(CC) -c lcd.c -o lcd.o $(CFLAGS)
 
 # clean 규칙
 clean:
