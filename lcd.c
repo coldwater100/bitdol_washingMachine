@@ -7,9 +7,13 @@ static int lcd_fd = -1;
 void lcd_send_byte(int bits, int mode) {
     int high_bits = mode | (bits & 0xF0) | LCD_BACKLIGHT;
     int low_bits = mode | ((bits << 4) & 0xF0) | LCD_BACKLIGHT;
-
+    
     // Enable 신호 전송
-    wiringPiI2CWrite(lcd_fd, high_bits);
+    if (wiringPiI2CWrite(lcd_fd, high_bits) == -1) {
+        printf("I2C 통신 오류 발생\n");
+        fflush(stdout);
+        lcd_init(); // I2C 상태 복구
+    }
     wiringPiI2CWrite(lcd_fd, high_bits | LCD_ENABLE);
     usleep(500);
     wiringPiI2CWrite(lcd_fd, high_bits & ~LCD_ENABLE);

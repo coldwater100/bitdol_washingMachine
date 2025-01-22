@@ -6,6 +6,7 @@
  * @param speed - 모터 속도 (0~100)
  */
 void motor_forward(int speed) {
+    printf("IN1 : %d, IN2 : %d, speed : %d",digitalRead(IN1),digitalRead(IN2),speed);
     digitalWrite(IN1, HIGH);
     digitalWrite(IN2, LOW);
     softPwmWrite(ENA, speed);  // 속도 설정 (0~100)
